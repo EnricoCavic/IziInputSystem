@@ -8,13 +8,14 @@ using System;
 public class InputBuffer
 {
     private List<InputObject> inputQueue = new List<InputObject>();
-    public float inputTimeout;
+    public double inputTimeout;
     public Action<InputObject> onInputEnqueued;
 
     public void EnqueueInput(InputObject _obj)
     {
         inputQueue.Add(_obj);
         onInputEnqueued?.Invoke(_obj);
+        Debug.Log("Input enqueued " + _obj.name + " / " + _obj.isPressing + " / " + _obj.registeredTime);
 
     }
 
@@ -23,9 +24,10 @@ public class InputBuffer
         if(inputQueue.Count <= 0)
             return;
 
-        if(Time.time - PeekInput().registeredTime > inputTimeout)
+        if(Time.timeAsDouble - PeekInput().registeredTime > inputTimeout)
         {
-            InputObject _obj = DequeueInput();   
+            InputObject _obj = DequeueInput();
+            Debug.Log("Input dequeued " + _obj.name + " / " + _obj.isPressing + " / " + _obj.wasProcessed + " / " + _obj.registeredTime);  
         }
         
     }

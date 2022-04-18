@@ -7,32 +7,23 @@ using UnityEngine.InputSystem;
 // InputObjects are input representations to be stored
 public class InputObject
 {
-    public InputResponse response;
     public string name;
     public bool isPressing;
 
-    public float registeredTime;
+    public double registeredTime;
     public bool wasProcessed;
 
-    
-    // Creates a base obj that represent an input to be stored in the InputProcessor
-    // Pass a base obj created this way to a new event to store into the buffer   
-    public InputObject(InputResponse _response)
-    {
-        response = _response;
-        name = response.name;
-    }
 
     // Creates the obj that it is stored into the buffer
     // Contains all the parameters necessary for manipulation
-    public InputObject(InputObject _obj, bool _isPressing)
+    public InputObject(string _name, bool _isPressing, double _registeredTime)
     {
-        response = _obj.response;
-        name = _obj.name;
+        name = _name;
         isPressing = _isPressing;
-        registeredTime = Time.time;
+        registeredTime = _registeredTime;
         wasProcessed = false; 
     }
+
 
     
     // Creates a dummy obj to use the function CompareToObject()

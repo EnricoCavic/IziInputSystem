@@ -11,7 +11,7 @@ public class InputProcessor : MonoBehaviour
 
     private List<InputObject> inputObjects = new List<InputObject>();
 
-    public InputBuffer buffer;
+    [SerializeField] private InputBuffer buffer;
 
     void OnEnable()
     {
@@ -36,9 +36,10 @@ public class InputProcessor : MonoBehaviour
 
     public void RegisterToBuffer(InputAction.CallbackContext _context)
     {
-        InputObject baseObj = GetInputObject(_context.action);
-        bool isPressing = _context.ReadValue<float>() > float.Epsilon;
-        buffer.EnqueueInput(new InputObject(baseObj, isPressing));
+        InputObject inputObject = new InputObject(_context.action.name,
+                                                  _context.ReadValue<float>() > float.Epsilon,
+                                                  _context.startTime);
+        buffer?.EnqueueInput(inputObject);
     }
 
     // public InputResponse GetAction(string _name)
@@ -50,14 +51,14 @@ public class InputProcessor : MonoBehaviour
     //     return null;
     // }
     
-    private InputObject GetInputObject(InputAction _action)
-    {
-        foreach (InputObject _obj in inputObjects)
-            if(_obj.response.action == _action)
-                return _obj;
+    // private InputObject GetInputObject(InputAction _action)
+    // {
+    //     foreach (InputObject _obj in inputObjects)
+    //         if(_obj.response.action == _action)
+    //             return _obj;
 
-        return null;
-    }
+    //     return null;
+    // }
 
     void OnDisable()
     {

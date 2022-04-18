@@ -20,7 +20,7 @@ public class @MainInputAsset : IInputActionCollection, IDisposable
             ""actions"": [
                 {
                     ""name"": ""MainInput"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""09f8075c-b162-4050-86f4-45b5c59b6ffd"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -28,7 +28,7 @@ public class @MainInputAsset : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""SecondaryInput"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""e14c839b-dd37-47d4-b8b3-68685b1d20d8"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",

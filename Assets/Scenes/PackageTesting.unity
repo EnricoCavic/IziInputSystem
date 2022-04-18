@@ -395,26 +395,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6115c6202743875438e95d91f3519e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputActions:
-  - name: Main
-    action:
-      m_Name: Action
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 168e254d-c2b1-44dd-95b9-d5bb6ce21da3
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings:
-      - m_Name: 
-        m_Id: 7d34b298-1313-47c9-9d6d-d19a756a486a
-        m_Path: <Mouse>/leftButton
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Action
-        m_Flags: 0
   buffer:
-    inputTimeout: 0
+    inputTimeout: 0.2
 --- !u!4 &1354425499
 Transform:
   m_ObjectHideFlags: 0
