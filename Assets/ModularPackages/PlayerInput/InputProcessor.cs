@@ -6,7 +6,6 @@ using System;
 
 public class InputProcessor : MonoBehaviour
 {
-    [InputList]
     public List<InputResponse> inputActions;
 
     private List<InputObject> inputObjects = new List<InputObject>();
