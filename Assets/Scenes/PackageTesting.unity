@@ -396,17 +396,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputActions:
-  - name: LeftClick
+  - name: Main
     action:
       m_Name: Action
       m_Type: 0
       m_ExpectedControlType: 
-      m_Id: 6a20a67c-bd92-4b2d-881b-e94bb8d1a4c4
+      m_Id: 168e254d-c2b1-44dd-95b9-d5bb6ce21da3
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings:
       - m_Name: 
-        m_Id: 5d9414a5-46a4-4c10-8163-8d4c51f55f37
+        m_Id: 7d34b298-1313-47c9-9d6d-d19a756a486a
         m_Path: <Mouse>/leftButton
         m_Interactions: 
         m_Processors: 
@@ -414,7 +414,7 @@ MonoBehaviour:
         m_Action: Action
         m_Flags: 0
   buffer:
-    inputTimeout: 0.2
+    inputTimeout: 0
 --- !u!4 &1354425499
 Transform:
   m_ObjectHideFlags: 0
@@ -441,6 +441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 188c603acca74de4bb30844c1bf4ef12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetAnimator: {fileID: 0}
 --- !u!1 &1384066746
 GameObject:
   m_ObjectHideFlags: 0
