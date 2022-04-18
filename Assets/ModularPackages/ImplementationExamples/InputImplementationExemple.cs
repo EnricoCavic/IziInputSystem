@@ -2,26 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[RequireComponent(typeof(InputProcessor))]
 public class InputImplementationExemple : MonoBehaviour
 {
+    private MainInputAsset inputAsset;
+
     private InputProcessor inputProcessor;
     [SerializeField] private Animator targetAnimator;
 
-
-    private void Awake()
+    private void Awake()  
     {
+        inputAsset = new MainInputAsset();
         inputProcessor = GetComponent<InputProcessor>();
-
-    }
-    private void OnEnable() 
-    {
-        inputProcessor.buffer.onInputEnqueued += TryInput;
     }
 
-    private void TryInput(InputObject _obj)
+    private void Start() 
     {
-        
+        inputAsset.MainMap.MainInput.started += inputProcessor.RegisterToBuffer; 
     }
 
 

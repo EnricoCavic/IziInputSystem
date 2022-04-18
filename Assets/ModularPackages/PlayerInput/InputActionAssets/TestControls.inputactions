@@ -6,7 +6,7 @@
             "id": "ea01f048-ab50-409d-8c13-7a92f1637bfe",
             "actions": [
                 {
-                    "name": "Attack1",
+                    "name": "MainInput",
                     "type": "Button",
                     "id": "09f8075c-b162-4050-86f4-45b5c59b6ffd",
                     "expectedControlType": "Button",
@@ -14,7 +14,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Attack2",
+                    "name": "SecondaryInput",
                     "type": "Button",
                     "id": "e14c839b-dd37-47d4-b8b3-68685b1d20d8",
                     "expectedControlType": "Button",
@@ -30,7 +30,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack1",
+                    "action": "MainInput",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -41,7 +41,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack2",
+                    "action": "SecondaryInput",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

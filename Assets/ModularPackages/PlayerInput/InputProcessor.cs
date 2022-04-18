@@ -6,7 +6,8 @@ using System;
 
 public class InputProcessor : MonoBehaviour
 {
-    public List<InputResponse> inputActions;
+
+    //public List<InputResponse> inputActions;
 
     private List<InputObject> inputObjects = new List<InputObject>();
 
@@ -14,18 +15,18 @@ public class InputProcessor : MonoBehaviour
 
     void OnEnable()
     {
-        foreach (InputResponse _response in inputActions)
-            _response.action.Enable();
+        // foreach (InputResponse _response in inputActions)
+        //     _response.action.Enable();
     }
 
     private void Start() 
     {
-        foreach (InputResponse _response in inputActions)
-        {
-            inputObjects.Add(new InputObject(_response));
-            _response.action.started += RegisterToBuffer;
-            _response.action.canceled += RegisterToBuffer;
-        }
+        // foreach (InputResponse _response in inputActions)
+        // {
+        //     inputObjects.Add(new InputObject(_response));
+        //     _response.action.started += RegisterToBuffer;
+        //     _response.action.canceled += RegisterToBuffer;
+        // }
     }
 
     void FixedUpdate() 
@@ -40,14 +41,14 @@ public class InputProcessor : MonoBehaviour
         buffer.EnqueueInput(new InputObject(baseObj, isPressing));
     }
 
-    public InputResponse GetAction(string _name)
-    {
-        foreach (InputResponse _response in inputActions)
-            if(_response.name == _name)
-                return _response;
+    // public InputResponse GetAction(string _name)
+    // {
+    //     foreach (InputResponse _response in inputActions)
+    //         if(_response.name == _name)
+    //             return _response;
 
-        return null;
-    }
+    //     return null;
+    // }
     
     private InputObject GetInputObject(InputAction _action)
     {
@@ -60,8 +61,8 @@ public class InputProcessor : MonoBehaviour
 
     void OnDisable()
     {
-        foreach (InputResponse _response in inputActions)
-            _response.action.Disable();
+        // foreach (InputResponse _response in inputActions)
+        //     _response.action.Disable();
     }
 
 }
