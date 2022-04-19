@@ -27,6 +27,14 @@ public class @MainInputAsset : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""DoubleTapMainInput"",
+                    ""type"": ""Value"",
+                    ""id"": ""3f7aab05-848f-4901-9ab1-08203571b2b7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""MultiTap(tapDelay=0.3)""
+                },
+                {
                     ""name"": ""SecondaryInput"",
                     ""type"": ""Value"",
                     ""id"": ""e14c839b-dd37-47d4-b8b3-68685b1d20d8"",
@@ -57,6 +65,17 @@ public class @MainInputAsset : IInputActionCollection, IDisposable
                     ""action"": ""SecondaryInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5ec61d75-a912-4b7e-8639-1529c50e558f"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DoubleTapMainInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -66,6 +85,7 @@ public class @MainInputAsset : IInputActionCollection, IDisposable
         // MainMap
         m_MainMap = asset.FindActionMap("MainMap", throwIfNotFound: true);
         m_MainMap_MainInput = m_MainMap.FindAction("MainInput", throwIfNotFound: true);
+        m_MainMap_DoubleTapMainInput = m_MainMap.FindAction("DoubleTapMainInput", throwIfNotFound: true);
         m_MainMap_SecondaryInput = m_MainMap.FindAction("SecondaryInput", throwIfNotFound: true);
     }
 
@@ -117,12 +137,14 @@ public class @MainInputAsset : IInputActionCollection, IDisposable
     private readonly InputActionMap m_MainMap;
     private IMainMapActions m_MainMapActionsCallbackInterface;
     private readonly InputAction m_MainMap_MainInput;
+    private readonly InputAction m_MainMap_DoubleTapMainInput;
     private readonly InputAction m_MainMap_SecondaryInput;
     public struct MainMapActions
     {
         private @MainInputAsset m_Wrapper;
         public MainMapActions(@MainInputAsset wrapper) { m_Wrapper = wrapper; }
         public InputAction @MainInput => m_Wrapper.m_MainMap_MainInput;
+        public InputAction @DoubleTapMainInput => m_Wrapper.m_MainMap_DoubleTapMainInput;
         public InputAction @SecondaryInput => m_Wrapper.m_MainMap_SecondaryInput;
         public InputActionMap Get() { return m_Wrapper.m_MainMap; }
         public void Enable() { Get().Enable(); }
@@ -136,6 +158,9 @@ public class @MainInputAsset : IInputActionCollection, IDisposable
                 @MainInput.started -= m_Wrapper.m_MainMapActionsCallbackInterface.OnMainInput;
                 @MainInput.performed -= m_Wrapper.m_MainMapActionsCallbackInterface.OnMainInput;
                 @MainInput.canceled -= m_Wrapper.m_MainMapActionsCallbackInterface.OnMainInput;
+                @DoubleTapMainInput.started -= m_Wrapper.m_MainMapActionsCallbackInterface.OnDoubleTapMainInput;
+                @DoubleTapMainInput.performed -= m_Wrapper.m_MainMapActionsCallbackInterface.OnDoubleTapMainInput;
+                @DoubleTapMainInput.canceled -= m_Wrapper.m_MainMapActionsCallbackInterface.OnDoubleTapMainInput;
                 @SecondaryInput.started -= m_Wrapper.m_MainMapActionsCallbackInterface.OnSecondaryInput;
                 @SecondaryInput.performed -= m_Wrapper.m_MainMapActionsCallbackInterface.OnSecondaryInput;
                 @SecondaryInput.canceled -= m_Wrapper.m_MainMapActionsCallbackInterface.OnSecondaryInput;
@@ -146,6 +171,9 @@ public class @MainInputAsset : IInputActionCollection, IDisposable
                 @MainInput.started += instance.OnMainInput;
                 @MainInput.performed += instance.OnMainInput;
                 @MainInput.canceled += instance.OnMainInput;
+                @DoubleTapMainInput.started += instance.OnDoubleTapMainInput;
+                @DoubleTapMainInput.performed += instance.OnDoubleTapMainInput;
+                @DoubleTapMainInput.canceled += instance.OnDoubleTapMainInput;
                 @SecondaryInput.started += instance.OnSecondaryInput;
                 @SecondaryInput.performed += instance.OnSecondaryInput;
                 @SecondaryInput.canceled += instance.OnSecondaryInput;
@@ -156,6 +184,7 @@ public class @MainInputAsset : IInputActionCollection, IDisposable
     public interface IMainMapActions
     {
         void OnMainInput(InputAction.CallbackContext context);
+        void OnDoubleTapMainInput(InputAction.CallbackContext context);
         void OnSecondaryInput(InputAction.CallbackContext context);
     }
 }

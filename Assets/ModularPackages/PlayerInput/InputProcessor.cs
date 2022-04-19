@@ -9,7 +9,7 @@ public class InputProcessor : MonoBehaviour
 
     //public List<InputResponse> inputActions;
 
-    private List<InputObject> inputObjects = new List<InputObject>();
+    private List<InputBufferObject> inputObjects = new List<InputBufferObject>();
 
     [SerializeField] private InputBuffer buffer;
 
@@ -23,7 +23,7 @@ public class InputProcessor : MonoBehaviour
     {
         // foreach (InputResponse _response in inputActions)
         // {
-        //     inputObjects.Add(new InputObject(_response));
+        //     inputObjects.Add(new InputBufferObject(_response));
         //     _response.action.started += RegisterToBuffer;
         //     _response.action.canceled += RegisterToBuffer;
         // }
@@ -36,10 +36,8 @@ public class InputProcessor : MonoBehaviour
 
     public void RegisterToBuffer(InputAction.CallbackContext _context)
     {
-        InputObject inputObject = new InputObject(_context.action.name,
-                                                  _context.ReadValue<float>() > float.Epsilon,
-                                                  _context.startTime);
-        buffer?.EnqueueInput(inputObject);
+        // InputBufferObject inputObject = new InputBufferObject(_context);
+        // buffer?.EnqueueInput(inputObject);
     }
 
     // public InputResponse GetAction(string _name)
@@ -51,9 +49,9 @@ public class InputProcessor : MonoBehaviour
     //     return null;
     // }
     
-    // private InputObject GetInputObject(InputAction _action)
+    // private InputBufferObject GetInputObject(InputAction _action)
     // {
-    //     foreach (InputObject _obj in inputObjects)
+    //     foreach (InputBufferObject _obj in inputObjects)
     //         if(_obj.response.action == _action)
     //             return _obj;
 

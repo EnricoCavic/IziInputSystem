@@ -2,25 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 
 // InputObjects are input representations to be stored
-public class InputObject
+public class InputBufferObject
 {
     public string name;
-    public bool isPressing;
-
-    public double registeredTime;
+    public float value;
+    public InputActionPhase phase;
+    public float registeredTime;
     public bool wasProcessed;
+
+
+    public int bufferPosition;
 
 
     // Creates the obj that it is stored into the buffer
     // Contains all the parameters necessary for manipulation
-    public InputObject(string _name, bool _isPressing, double _registeredTime)
+    public InputBufferObject(InputAction.CallbackContext _context)
     {
-        name = _name;
-        isPressing = _isPressing;
-        registeredTime = _registeredTime;
+
+        name = _context.action.name;
+        value = _context.ReadValue<float>();
+        phase = _context.phase;
+        registeredTime = Time.time;
         wasProcessed = false; 
     }
 
@@ -28,21 +34,21 @@ public class InputObject
     
     // Creates a dummy obj to use the function CompareToObject()
     // Used to find and obj in the buffer with specific parameters
-    public InputObject(string _name, bool _isPressing, bool _wasProcessed)
+    public InputBufferObject(string _name, InputActionPhase _phase, bool _wasProcessed)
     {
         name = _name;
-        isPressing = _isPressing;
+        phase = _phase;
         wasProcessed = _wasProcessed; 
     }
 
     // Used with the dummy obj to find objs in the buffer that meet the requirement 
-    public bool CompareToObject(InputObject _objToCompare)
+    public bool CompareToObject(InputBufferObject _objToCompare)
     {
         if(_objToCompare == null)
             return false;
 
         return _objToCompare.name == name &&
-               _objToCompare.isPressing == isPressing &&
+               _objToCompare.phase == phase &&
                _objToCompare.wasProcessed == wasProcessed;
     }
 
