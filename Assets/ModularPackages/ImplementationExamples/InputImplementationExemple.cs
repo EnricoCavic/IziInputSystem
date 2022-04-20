@@ -24,7 +24,7 @@ public class InputImplementationExemple : MonoBehaviour
 
     private void Start() 
     {
-        AnimationEventTrigger.onAnimationEnded += CheckForInputsStored;
+        AnimationEventTrigger.onAnimationStarted += CheckForInputsStored;
 
         inputAsset.MainMap.MainInput.started += buffer.RegisterInput;
         inputAsset.MainMap.MainInput.canceled += buffer.RegisterInput; 
