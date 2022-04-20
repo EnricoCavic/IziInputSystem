@@ -409,7 +409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buffer:
-    inputTimeout: 0.5
+    inputTimeout: 0.3
     inputActionPriority:
     - {fileID: 4771386839079717994, guid: 7b32bb51f52770e4ba931258be4a02a3, type: 3}
     - {fileID: -2777859636684993630, guid: 7b32bb51f52770e4ba931258be4a02a3, type: 3}

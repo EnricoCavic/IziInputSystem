@@ -10,7 +10,6 @@ public class InputImplementationExemple : MonoBehaviour
 
     public InputBuffer buffer;
 
-    private InputProcessor inputProcessor;
     [SerializeField] private Animator targetAnimator;
 
     private void Awake()  
@@ -25,15 +24,15 @@ public class InputImplementationExemple : MonoBehaviour
 
     private void Start() 
     {
-        AnimationEventTrigger.onAnimationStarted += AcceptInput;
+        AnimationEventTrigger.onAnimationEnded += CheckBuffer;
 
         inputAsset.MainMap.MainInput.started += buffer.RegisterInput;
         inputAsset.MainMap.MainInput.canceled += buffer.RegisterInput; 
 
-        inputAsset.MainMap.DoubleTapMainInput.performed += buffer.RegisterInput;
-
         inputAsset.MainMap.SecondaryInput.started += buffer.RegisterInput;
         inputAsset.MainMap.SecondaryInput.canceled += buffer.RegisterInput; 
+
+        inputAsset.MainMap.DoubleTapMainInput.performed += buffer.RegisterInput;
 
 
 
@@ -44,7 +43,7 @@ public class InputImplementationExemple : MonoBehaviour
 
     private void TryInput(InputBufferObject obj)
     {
-        if(!canAcceptInput)
+        if(!canReceiveInput)
              return;
 
 
@@ -55,10 +54,10 @@ public class InputImplementationExemple : MonoBehaviour
     }
 
 
-    private void AcceptInput(AnimationEventTrigger _eventTrigger)
+    private void CheckBuffer(AnimationEventTrigger _eventTrigger)
     {
-        Debug.Log("Idle enter");
-        InputBufferObject obj = buffer.RequestNextInput(inputAsset.MainMap.MainInput.name, InputActionPhase.Started);
+        Debug.Log("Checking buffer...");
+        InputBufferObject obj = buffer.RequestNextInput(InputActionPhase.Started);
 
         DoSomethingWithInput(obj);
     }
@@ -82,7 +81,7 @@ public class InputImplementationExemple : MonoBehaviour
         inputAsset.MainMap.Disable();    
     }
 
-    private bool canAcceptInput => targetAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base.Idle");
+    private bool canReceiveInput => targetAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base.Idle");
 
 
 }

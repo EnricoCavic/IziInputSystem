@@ -54,31 +54,39 @@ public class InputBuffer
         if(foundObj != null)
         {
 
-            Debug.Log("Input used: "+ foundObj.name + " / " + foundObj.phase+ " / " + Time.time);
+            Debug.Log("Input used instantly: "+ foundObj.name + " / " + foundObj.phase+ " / " + Time.time);
             foundObj.wasProcessed = true;
             return foundObj;
         }
             
         return null;
     }
-    public InputBufferObject RequestNextInput(string _actionName, InputActionPhase _phase)
-    {  
+    public InputBufferObject RequestNextInput(InputActionPhase _phase)
+    {
+        if(inputQueue.Count <= 0)
+            return null;
+
         InputBufferObject objToCompare;
 
-        //for(int i = 0; i < inputActionPriority.Length; i++)
-        
-            objToCompare = new InputBufferObject(_actionName, _phase, false);
-            //Debug.Log(objToCompare.name + " / " + objToCompare.phase);
+        for(int i = 0; i < inputActionPriority.Length; i++)
+        {
+            objToCompare = new InputBufferObject(inputActionPriority[i].action.name, _phase, false);
             InputBufferObject obj = FindNext(objToCompare);
             if(obj != null)
             {
-                // for (int j = obj.bufferPosition; j >= 0; i--)
-                //     inputQueue[j].wasProcessed = true;
-                obj.wasProcessed = true;
+
+                for (int j = obj.bufferPosition; j >= 0; j--)
+                {
+                    inputQueue[j].wasProcessed = true;
+                    obj.wasProcessed = true;
+                    
+                }   
+
+                Debug.Log("Input used from buffer: "+ obj.name + " / " + obj.phase+ " / " + Time.time); 
                 return obj;
             }
 
-        
+        }
 
         return null;
 
