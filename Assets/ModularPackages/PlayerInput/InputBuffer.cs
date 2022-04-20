@@ -61,7 +61,7 @@ public class InputBuffer
             
         return null;
     }
-    public InputBufferObject RequestNextInput(InputActionPhase _phase)
+    public InputBufferObject RequestNextInputByPriority(InputActionPhase _phase)
     {
         if(inputQueue.Count <= 0)
             return null;

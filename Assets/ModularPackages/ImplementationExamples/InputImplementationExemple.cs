@@ -24,7 +24,7 @@ public class InputImplementationExemple : MonoBehaviour
 
     private void Start() 
     {
-        AnimationEventTrigger.onAnimationEnded += CheckBuffer;
+        AnimationEventTrigger.onAnimationEnded += CheckForInputsStored;
 
         inputAsset.MainMap.MainInput.started += buffer.RegisterInput;
         inputAsset.MainMap.MainInput.canceled += buffer.RegisterInput; 
@@ -54,10 +54,10 @@ public class InputImplementationExemple : MonoBehaviour
     }
 
 
-    private void CheckBuffer(AnimationEventTrigger _eventTrigger)
+    private void CheckForInputsStored(AnimationEventTrigger _eventTrigger)
     {
         Debug.Log("Checking buffer...");
-        InputBufferObject obj = buffer.RequestNextInput(InputActionPhase.Started);
+        InputBufferObject obj = buffer.RequestNextInputByPriority(InputActionPhase.Started);
 
         DoSomethingWithInput(obj);
     }
@@ -66,6 +66,17 @@ public class InputImplementationExemple : MonoBehaviour
     {
         if(obj == null)
             return;
+
+        // separating different actions per state
+        string currentState = GetCurrentState();
+        switch(currentState)
+        {
+            case "Idle":
+                if(obj.phase == InputActionPhase.Canceled)
+                    return;
+
+                break;
+        }
 
         // can be any aplication of the input, changing the animation is just an exemple
         targetAnimator.SetTrigger(obj.name + obj.phase);
@@ -82,6 +93,7 @@ public class InputImplementationExemple : MonoBehaviour
     }
 
     private bool canReceiveInput => targetAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base.Idle");
+    private string GetCurrentState() => targetAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
 
 
 }
